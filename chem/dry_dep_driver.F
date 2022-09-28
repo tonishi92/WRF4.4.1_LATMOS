@@ -4,8 +4,8 @@
 !                   Richard C. Easter (PNNL)
 ! 10/11/2011 - Ravan Ahmadov (NOAA) updated to include the RACM_SOA_VBS option
 !
-
-
+!lm 2015/07: Now passing xice to wesely_driver in order to add a case for
+!            deposition over ice
 !lm 2015/07: Added a diagnostic variable, dry_dep_bc, representing accumulated
 !            bc deposition (µg m-2) due to dry dep in MOSAIC, calculated in mixactivate
 !WRF:MODEL_LAYER:CHEMICS
@@ -17,7 +17,7 @@ CONTAINS
 
     subroutine dry_dep_driver(id,curr_secs,ktau,dtstep,config_flags,      &
                gmt,julday,t_phy,moist,scalar,p8w,t8w,w,alt,               &
-               p_phy,chem,tracer,rho_phy,dz8w,rh,exch_h,hfx,dx,           &  
+               p_phy,snowc,chem,tracer,rho_phy,dz8w,rh,exch_h,hfx,dx,     &  
                cldfra, cldfra_old,raincv,seasin,dustin,                   &
                ccn1, ccn2, ccn3, ccn4, ccn5, ccn6, nsource,               &
                ivgtyp,tsk,gsw,vegfra,pbl,rmol,ust,znt,xlat,xlong,z,z_at_w,&
@@ -35,7 +35,7 @@ CONTAINS
                setvel_1,setvel_2,setvel_3,setvel_4,setvel_5, imod,        &         
                is_CAMMGMP_used,                                           &
 !lm
-!
+               xice,                                                      &
 !ND TEST FOR MASSIVE OUTPUT OF DRY DEPOSITION
                dryd_ct,                                                   &
 !lm
@@ -111,6 +111,7 @@ CONTAINS
                                                       t_phy,    &
                                                         alt,    &
                                                       p_phy,    &
+                                                      snowc,    &
                                                       dz8w,     &
                                                         rh,     &
                                               t8w,p8w,z_at_w ,  &
@@ -135,6 +136,9 @@ CONTAINS
                                                      xlat,      &
                                                      xlong,     &
                                                      snowh,     &
+!lm
+                                                     xice,      &
+!lm
                                           xland,znt,raincv,ash_fall
 !ND TEST FOR ADDING DRY DEPOSITION ON THE OUTPUT IN A MORE MASSIVE WAY
    REAL, DIMENSION( ims:ime , 1, jms:jme, num_chem ), INTENT(INOUT) :: dryd_ct
@@ -288,6 +292,9 @@ CONTAINS
                p_phy,chem,rho_phy,dz8w,ddvel,aer_res_def,aer_res_zcen,    &
                ivgtyp,tsk,gsw,vegfra,pbl,rmol,ust,znt,xlat,xlong,z,z_at_w,&
                snowh,numgas,                                              &
+!lm
+               xice,                                                      &
+!lm
                ids,ide, jds,jde, kds,kde,                                 &
                ims,ime, jms,jme, kms,kme,                                 &
                its,ite, jts,jte, kts,kte                                  )
@@ -394,6 +401,9 @@ CONTAINS
                p_phy,chem,rho_phy,dz8w,ddvel,aer_res_def,aer_res_zcen,    & 
                ivgtyp,tsk,gsw,vegfra,pbl,rmol,ust,znt,xlat,xlong,z,z_at_w,&
                snowh, numgas,                                             &
+!lm
+               xice,                                                      &
+!lm
                ids,ide, jds,jde, kds,kde,                                 &
                ims,ime, jms,jme, kms,kme,                                 &
                its,ite, jts,jte, kts,kte                                  )
@@ -438,6 +448,9 @@ CONTAINS
                p_phy,chem,rho_phy,dz8w,ddvel,aer_res_def,aer_res_zcen,    &
                ivgtyp,tsk,gsw,vegfra,pbl,rmol,ust,znt,xlat,xlong,z,z_at_w,&
                snowh, numgas,                                             &
+!lm
+               xice,                                                      &
+!lm
                ids,ide, jds,jde, kds,kde,                                 &
                ims,ime, jms,jme, kms,kme,                                 &
                its,ite, jts,jte, kts,kte                                  )
@@ -615,7 +628,7 @@ CONTAINS
               call aer_drydep_driver(                                          &
                       id, ktau, dtstep, config_flags, aer_mech_id,           &
                       gmt, julday,                                             &
-                      t_phy, rho_phy, p_phy,                                   &
+                      t_phy, rho_phy, p_phy,snowc,                             &
                       alt, p8w, t8w, dz8w, z, z_at_w,                          &
                       ust, aer_res, ivgtyp, vegfra, pbl, rmol, znt,            &
                       moist, chem, ddvel,                                      &
