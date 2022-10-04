@@ -162,11 +162,9 @@
                 ic_flashrate, cg_flashrate,           & ! flashes (#/s)
               ! Scheme specific prognostics
                 cldfra_cup, htop,                     &
-                refl,                                 &
               ! Namelist inputs
                 N_IC, N_CG,                           &
                 ltng_temp_upper,ltng_temp_lower,      &
-                cellcount_method,                     &
               ! Order dependent args for domain, mem, and tile dims
                 ids, ide, jds, jde, kds, kde,         &
                 ims, ime, jms, jme, kms, kme,         &
