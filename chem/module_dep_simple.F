@@ -224,7 +224,33 @@ tile_lon_loop : &
                   iseason = 4
                endif
             end if
-
+!lm Also use the wrf_season external file for setting iseason when using
+! CBMZ-MOSAIC and SAPRC99-MOSAIC mechanisms. 
+            if( config_flags%chem_opt == CBMZ_MOSAIC_4BIN .or. &
+                config_flags%chem_opt == CBMZ_MOSAIC_8BIN .or. &
+                config_flags%chem_opt == CBMZ_MOSAIC_4BIN_AQ .or. &
+                config_flags%chem_opt == CBMZ_MOSAIC_8BIN_AQ .or. &
+                config_flags%chem_opt == CBMZ_MOSAIC_DMS_4BIN .or. &
+                config_flags%chem_opt == CBMZ_MOSAIC_DMS_8BIN .or. &
+                config_flags%chem_opt == CBMZ_MOSAIC_KPP .or. &
+                config_flags%chem_opt == CBMZ_MOSAIC_DMS_4BIN_AQ .or. &
+                config_flags%chem_opt == CBMZ_MOSAIC_DMS_8BIN_AQ .or. &
+                config_flags%chem_opt == SAPRC99_MOSAIC_4BIN_VBS2_KPP .or. &
+                config_flags%chem_opt == SAPRC99_MOSAIC_8BIN_VBS2_AQ_KPP .or. &
+                config_flags%chem_opt == SAPRC99_MOSAIC_8BIN_VBS2_KPP) then
+               ! Add cases for deposition over snow and ice in CBMZ-MOSAIC and
+               ! SAPRC-MOSAIC mechanisms
+               if( snowh(i,j) < .01 ) then
+                  iseason = seasonal_pft(id)%seasonal_wes(i,j,iland,current_month)
+               else
+                 iseason = 4
+               endif
+               if( xice(i,j) >= .15 ) then
+                 iland = 8
+                 iseason = 4
+               endif
+            end if
+!lm
             ta    = tsk(i,j)
             rad   = gsw(i,j)
             vegfrac = vegfra(i,j)
