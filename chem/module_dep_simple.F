@@ -1748,8 +1748,24 @@ include 'netcdf.inc'
           config_flags%chem_opt == MOZCART_KPP .or. &
           config_flags%chem_opt == T1_MOZCART_KPP .or. &
           config_flags%chem_opt == MOZART_MOSAIC_4BIN_KPP .or. &
-          config_flags%chem_opt == MOZART_MOSAIC_4BIN_AQ_KPP ) then
-         call wrf_message( 'dep_init: mozart,mozcart chem option requires netcdf' )
+!lm Also use the wrf_season external file for setting iseason when using
+! CBMZ-MOSAIC and SAPRC99-MOSAIC mechanisms. 
+!          config_flags%chem_opt == MOZART_MOSAIC_4BIN_AQ_KPP ) then
+!         call wrf_message( 'dep_init: mozart,mozcart chem option requires netcdf' )
+          config_flags%chem_opt == CBMZ_MOSAIC_4BIN .or. &
+          config_flags%chem_opt == CBMZ_MOSAIC_8BIN .or. &
+          config_flags%chem_opt == CBMZ_MOSAIC_4BIN_AQ .or. &
+          config_flags%chem_opt == CBMZ_MOSAIC_8BIN_AQ .or. &
+          config_flags%chem_opt == CBMZ_MOSAIC_DMS_4BIN .or. &
+          config_flags%chem_opt == CBMZ_MOSAIC_DMS_8BIN .or. &
+          config_flags%chem_opt == CBMZ_MOSAIC_KPP .or. &
+          config_flags%chem_opt == CBMZ_MOSAIC_DMS_4BIN_AQ .or. &
+          config_flags%chem_opt == CBMZ_MOSAIC_DMS_8BIN_AQ .or. &
+          config_flags%chem_opt == SAPRC99_MOSAIC_4BIN_VBS2_KPP .or. &
+          config_flags%chem_opt == SAPRC99_MOSAIC_8BIN_VBS2_AQ_KPP .or. &
+          config_flags%chem_opt == SAPRC99_MOSAIC_8BIN_VBS2_KPP) then
+         call wrf_message( 'dep_init: mozart,mozcart,cbmz-mosaic and saprc99-mosaic chem option requires netcdf' )
+!lm
          call wrf_abort
       end if
 #endif
@@ -4190,7 +4206,26 @@ is_cbm4_kpp : &
 !	... open wesely pft netcdf file
 !---------------------------------------------------------------------
 is_mozart : &
-      if( chm_is_moz ) then
+!      if( chm_is_moz ) then
+      if( chm_is_moz .or. &
+!lm Also use the wrf_season external file for setting iseason when using
+! CBMZ-MOSAIC and SAPRC99-MOSAIC mechanisms. 
+!          config_flags%chem_opt == MOZART_MOSAIC_4BIN_AQ_KPP ) then
+                config_flags%chem_opt == MOZART_MOSAIC_4BIN_AQ_KPP .or. &
+                config_flags%chem_opt == CBMZ_MOSAIC_4BIN .or. &
+                config_flags%chem_opt == CBMZ_MOSAIC_8BIN .or. &
+                config_flags%chem_opt == CBMZ_MOSAIC_4BIN_AQ .or. &
+                config_flags%chem_opt == CBMZ_MOSAIC_8BIN_AQ .or. &
+                config_flags%chem_opt == CBMZ_MOSAIC_DMS_4BIN .or. &
+                config_flags%chem_opt == CBMZ_MOSAIC_DMS_8BIN .or. &
+                config_flags%chem_opt == CBMZ_MOSAIC_KPP .or. &
+                config_flags%chem_opt == CBMZ_MOSAIC_DMS_4BIN_AQ .or. &
+                config_flags%chem_opt == CBMZ_MOSAIC_DMS_8BIN_AQ .or. &
+                config_flags%chem_opt == SAPRC99_MOSAIC_4BIN_VBS2_KPP .or. &
+                config_flags%chem_opt == SAPRC99_MOSAIC_8BIN_VBS2_AQ_KPP .or. &
+                config_flags%chem_opt == SAPRC99_MOSAIC_8BIN_VBS2_KPP &
+!lm
+        ) then
 !---------------------------------------------------------------------
 !	... allocate column_density type
 !---------------------------------------------------------------------
