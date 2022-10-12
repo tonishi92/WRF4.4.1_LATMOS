@@ -12400,7 +12400,9 @@ CONTAINS
          call inirad (o3mmr,plev,kts,nlay-1)
 
 ! Steven Cavallo: Changed to nlayers from kte+1
-        if(o3input.eq.2) then
+!lm      if(o3input .eq. 2)then
+        if(o3input .eq. 2 .or. o3input .eq. 3) then
+!lm
          do k = kts, nlayers
             o3vmr(ncol,k) = o3mmr(k) * amdo
             if(k.le.kte)then
@@ -12419,7 +12421,9 @@ CONTAINS
         endif
 
 ! output o3 for o3input=0
-        IF (o3input.ne.2) THEN
+!TO2        IF (o3input.ne.2) THEN
+        IF (o3input.ne.2.and.o3input.ne.3) THEN
+!TO2
             DO K=kts,kte
                O33D(I,K,J)=O31D(K)
             ENDDO
