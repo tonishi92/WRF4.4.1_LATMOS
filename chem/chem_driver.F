@@ -300,8 +300,8 @@
       INTEGER                         :: ksubt
 
       REAL :: chem_minval, dtstepc
-
-      REAL, DIMENSION(:,:,:,:), ALLOCATABLE :: irr_rates
+! TO2
+!      REAL, DIMENSION(:,:,:,:), ALLOCATABLE :: irr_rates
 
       REAL, DIMENSION(grid%sm31:grid%em31, grid%sm32:grid%em32, grid%sm33:grid%em33, numgas_mam) :: gas_aqfrac ! fraction of gas that is in cloud water
       
@@ -575,27 +575,27 @@
      CASE (MOZART_MOSAIC_4BIN_KPP) 
        CALL wrf_debug(15,'calling mozart_mosaic_4bin_kpp from chem_driver')
 #if( WRF_CHEM == 1 && WRF_KPP == 1 )
-       IF( grid%irr_opt == 1 ) then
-         ALLOCATE( irr_rates(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_irr_diag_mozart_mosaic_4bin),stat=astat )
-         IF( astat /= 0 ) THEN
-           write(msg,'(''chem_driver: Failed to allocate irr_rates; error = '',i8)') astat
-           CALL wrf_error_fatal( trim(msg) )
-         ENDIF
-         num_irr_diag = num_irr_diag_mozart_mosaic_4bin
-       ENDIF
+!TO2       IF( grid%irr_opt == 1 ) then
+!TO2         ALLOCATE( irr_rates(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_irr_diag_mozart_mosaic_4bin),stat=astat )
+!TO2         IF( astat /= 0 ) THEN
+!TO2           write(msg,'(''chem_driver: Failed to allocate irr_rates; error = '',i8)') astat
+!TO2           CALL wrf_error_fatal( trim(msg) )
+!TO2         ENDIF
+!TO2         num_irr_diag = num_irr_diag_mozart_mosaic_4bin
+!TO2       ENDIF
 #endif
        haveaer = .true.
      CASE (MOZART_MOSAIC_4BIN_AQ_KPP)
        CALL wrf_debug(15,'calling mozart_mosaic_4bin_aq_kpp from chem_driver')
 #if( WRF_CHEM == 1 && WRF_KPP == 1 )
-       IF( grid%irr_opt == 1 ) then
-         ALLOCATE( irr_rates(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_irr_diag_mozart_mosaic_4bin_aq),stat=astat )
-         IF( astat /= 0 ) THEN
-           write(msg,'(''chem_driver: Failed to allocate irr_rates; error = '',i8)') astat
-           CALL wrf_error_fatal( trim(msg) )
-         ENDIF
-         num_irr_diag = num_irr_diag_mozart_mosaic_4bin_aq
-       ENDIF
+!TO2       IF( grid%irr_opt == 1 ) then
+!TO2         ALLOCATE( irr_rates(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_irr_diag_mozart_mosaic_4bin_aq),stat=astat )
+!TO2         IF( astat /= 0 ) THEN
+!TO2           write(msg,'(''chem_driver: Failed to allocate irr_rates; error = '',i8)') astat
+!TO2           CALL wrf_error_fatal( trim(msg) )
+!TO2         ENDIF
+!TO2         num_irr_diag = num_irr_diag_mozart_mosaic_4bin_aq
+!TO2       ENDIF
 #endif
        haveaer = .true.
        !BSINGH -  Added case statement for SAPRC 8 bin
@@ -659,26 +659,26 @@
      CASE (MOZCART_KPP)
        CALL wrf_debug(15,'calling mozcart driver from chem_driver')
 #if( WRF_CHEM == 1 && WRF_KPP == 1 )
-       IF( grid%irr_opt == 1 ) then
-         ALLOCATE( irr_rates(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_irr_diag_mozcart),stat=astat )
-         IF( astat /= 0 ) THEN
-           write(msg,'(''chem_driver: Failed to allocate irr_rates; error = '',i8)') astat
-           CALL wrf_error_fatal( trim(msg) )
-         ENDIF
-         num_irr_diag = num_irr_diag_mozcart
-       ENDIF
+!TO2       IF( grid%irr_opt == 1 ) then
+!TO2         ALLOCATE( irr_rates(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_irr_diag_mozcart),stat=astat )
+!TO2         IF( astat /= 0 ) THEN
+!TO2           write(msg,'(''chem_driver: Failed to allocate irr_rates; error = '',i8)') astat
+!TO2           CALL wrf_error_fatal( trim(msg) )
+!TO2         ENDIF
+!TO2         num_irr_diag = num_irr_diag_mozcart
+!TO2       ENDIF
 #endif
      CASE (T1_MOZCART_KPP)
        CALL wrf_debug(15,'calling t1_mozcart driver from chem_driver')
 #if( WRF_CHEM == 1 && WRF_KPP == 1 )
-       IF( grid%irr_opt == 1 ) then
-         ALLOCATE( irr_rates(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_irr_diag_t1_mozcart),stat=astat )
-         IF( astat /= 0 ) THEN
-           write(msg,'(''chem_driver: Failed to allocate irr_rates; error = '',i8)') astat
-           CALL wrf_error_fatal( trim(msg) )
-         ENDIF
-         num_irr_diag = num_irr_diag_t1_mozcart
-       ENDIF
+!TO2       IF( grid%irr_opt == 1 ) then
+!TO2         ALLOCATE( irr_rates(grid%sm31:grid%em31,grid%sm32:grid%em32,grid%sm33:grid%em33,num_irr_diag_t1_mozcart),stat=astat )
+!TO2         IF( astat /= 0 ) THEN
+!TO2           write(msg,'(''chem_driver: Failed to allocate irr_rates; error = '',i8)') astat
+!TO2           CALL wrf_error_fatal( trim(msg) )
+!TO2         ENDIF
+!TO2         num_irr_diag = num_irr_diag_t1_mozcart
+!TO2       ENDIF
 #endif
      CASE (CB05_SORG_AQ_KPP)
        CALL wrf_debug(15,'calling cb05_sorg_aq_kpp from chem_driver')
@@ -1513,54 +1513,56 @@ CALL kpp_mechanism_driver (chem,                                                
 !
    ids,ide, jds,jde, kds,kde,                                                         &
    ims,ime, jms,jme, kms,kme,                                                         &
-   its,ite,jts,jte,kts,kte,grid%id,num_irr_diag,irr_rates)
+!TO2
+!   its,ite,jts,jte,kts,kte,grid%id,num_irr_diag,irr_rates)
+   its,ite,jts,jte,kts,kte,grid%id,num_irr_diag)
           if( chm_is_mozart ) then
              call mozcart_lbc_set( chem, num_chem, grid%id, &
                                    ims, ime, jms, jme, kms, kme,    &
                                     its, ite, jts, jte, kts )
           end if
-    IF( grid%irr_opt == 1 ) then
-      select case( config_flags%chem_opt )
-        case( mozcart_kpp )
-          do n=param_first_scalar,num_irr_diag
-            do j=jts,jte
-              do k=kts,kte
-                irr_diag_mozcart(its:ite,k,j,n) = irr_diag_mozcart(its:ite,k,j,n) &
-                 + dtstepc*irr_rates(its:ite,k,j,n)*1.e6/(dens2con_a*rho(its:ite,k,j))
-              enddo
-            enddo
-          enddo
-        case( t1_mozcart_kpp )
-          do n=param_first_scalar,num_irr_diag
-            do j=jts,jte
-              do k=kts,kte
-                irr_diag_t1_mozcart(its:ite,k,j,n) = irr_diag_t1_mozcart(its:ite,k,j,n) &
-                 + dtstepc*irr_rates(its:ite,k,j,n)*1.e6/(dens2con_a*rho(its:ite,k,j))
-              enddo
-            enddo
-          enddo
-        case( mozart_mosaic_4bin_kpp )
-          do n=param_first_scalar,num_irr_diag
-            do j=jts,jte
-              do k=kts,kte
-                irr_diag_mozart_mosaic_4bin(its:ite,k,j,n) = &
-                      irr_diag_mozart_mosaic_4bin(its:ite,k,j,n) &
-                      + dtstepc*irr_rates(its:ite,k,j,n)*1.e6/(dens2con_a*rho(its:ite,k,j))
-              enddo
-            enddo
-          enddo
-        case( mozart_mosaic_4bin_aq_kpp )
-          do n=param_first_scalar,num_irr_diag
-            do j=jts,jte
-              do k=kts,kte
-                irr_diag_mozart_mosaic_4bin_aq(its:ite,k,j,n) = &
-                      irr_diag_mozart_mosaic_4bin_aq(its:ite,k,j,n) &
-                      + dtstepc*irr_rates(its:ite,k,j,n)*1.e6/(dens2con_a*rho(its:ite,k,j))
-              enddo
-            enddo
-          enddo
-      end select
-    ENDIF
+    !TO2 IF( grid%irr_opt == 1 ) then
+    !TO2   select case( config_flags%chem_opt )
+    !TO2     case( mozcart_kpp )
+    !TO2       do n=param_first_scalar,num_irr_diag
+    !TO2         do j=jts,jte
+    !TO2           do k=kts,kte
+    !TO2             irr_diag_mozcart(its:ite,k,j,n) = irr_diag_mozcart(its:ite,k,j,n) &
+    !TO2              + dtstepc*irr_rates(its:ite,k,j,n)*1.e6/(dens2con_a*rho(its:ite,k,j))
+    !TO2           enddo
+    !TO2         enddo
+    !TO2       enddo
+    !TO2     case( t1_mozcart_kpp )
+    !TO2       do n=param_first_scalar,num_irr_diag
+    !TO2         do j=jts,jte
+    !TO2           do k=kts,kte
+    !TO2             irr_diag_t1_mozcart(its:ite,k,j,n) = irr_diag_t1_mozcart(its:ite,k,j,n) &
+    !TO2              + dtstepc*irr_rates(its:ite,k,j,n)*1.e6/(dens2con_a*rho(its:ite,k,j))
+    !TO2           enddo
+    !TO2         enddo
+    !TO2       enddo
+    !TO2     case( mozart_mosaic_4bin_kpp )
+    !TO2       do n=param_first_scalar,num_irr_diag
+    !TO2         do j=jts,jte
+    !TO2           do k=kts,kte
+    !TO2             irr_diag_mozart_mosaic_4bin(its:ite,k,j,n) = &
+    !TO2                   irr_diag_mozart_mosaic_4bin(its:ite,k,j,n) &
+    !TO2                   + dtstepc*irr_rates(its:ite,k,j,n)*1.e6/(dens2con_a*rho(its:ite,k,j))
+    !TO2           enddo
+    !TO2         enddo
+    !TO2       enddo
+    !TO2     case( mozart_mosaic_4bin_aq_kpp )
+    !TO2       do n=param_first_scalar,num_irr_diag
+    !TO2         do j=jts,jte
+    !TO2           do k=kts,kte
+    !TO2             irr_diag_mozart_mosaic_4bin_aq(its:ite,k,j,n) = &
+    !TO2                   irr_diag_mozart_mosaic_4bin_aq(its:ite,k,j,n) &
+    !TO2                   + dtstepc*irr_rates(its:ite,k,j,n)*1.e6/(dens2con_a*rho(its:ite,k,j))
+    !TO2           enddo
+    !TO2         enddo
+    !TO2       enddo
+    !TO2   end select
+    !TO2 ENDIF
    
     if(config_flags%chem_opt == 301 ) then
        chem(its:ite,kts:kte,jts:jte,p_sulf)=vcsulf_old(its:ite,kts:kte,jts:jte)
@@ -2053,9 +2055,9 @@ end if !Chemistry time step check
    grid%dgnumwet_a2(its:ite, kts:kte, jts:jte) = grid%dgnumwet4d(its:ite, kts:kte, jts:jte, 2)
    grid%dgnumwet_a3(its:ite, kts:kte, jts:jte) = grid%dgnumwet4d(its:ite, kts:kte, jts:jte, 3)
 
-   IF( allocated( irr_rates ) ) THEN
-     deallocate( irr_rates )
-   ENDIF
+   !TO2 IF( allocated( irr_rates ) ) THEN
+   !TO2   deallocate( irr_rates )
+   !TO2 ENDIF
 
 
     END subroutine chem_driver
