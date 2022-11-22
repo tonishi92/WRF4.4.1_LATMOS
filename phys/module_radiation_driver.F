@@ -27,6 +27,9 @@ CONTAINS
               ,solar_opt                                                  &
               ,P8W    ,P ,PI                                              &
               ,p_top                                                      &
+!TO2      
+              ,radeffect_option                                           &
+!TO2
 !lm
 !              ,RADT   ,RA_CALL_OFFSET   &
               ,RADT ,RADEFFECTDT        &
@@ -651,6 +654,9 @@ CONTAINS
    LOGICAL,      INTENT(IN   )    ::   is_CAMMGMP_used !BSINGH:01/31/2013: Added for CAM5 RRTMG
 
    REAL,      INTENT(IN   )       ::   RADT
+!TO2
+   INTEGER,   INTENT(IN   )       ::   RADEFFECT_OPTION
+!TO2
 !lm
    REAL,      INTENT(IN   )       ::   RADEFFECTDT
 !lm
@@ -1395,6 +1401,9 @@ CONTAINS
        ENDIF
      ENDIF
    ENDIF
+!TO2
+   IF (radeffect_option .eq. 0) do_radeffect = .false.
+!TO2
    IF (do_radeffect) CALL wrf_debug(1, 'radiation_driver, do accumulated radiative forcing calcs.')
 !lm
    IF ( mp_physics .EQ. nuwrf4icescheme ) THEN
