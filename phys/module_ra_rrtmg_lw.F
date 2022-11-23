@@ -12010,7 +12010,7 @@ CONTAINS
             QV1D(K)=max(0.,QV1D(K))
          ENDDO
 
-         IF (o3input.eq.2) THEN
+         IF (o3input.eq.2 .or. o3input.eq.3) THEN
             DO K=kts,kte
                O31D(K)=O33D(I,K,J)
             ENDDO
