@@ -887,6 +887,16 @@ size_loop: &
     
 !!!!add the namelist options
 !!!seas_updates = 0 then original code is used; role of xice, Salisbury whitecap and organics only from Fuentes (seas_opt = 3 or 4)!
+!TO2
+       if(config_flags%seas_updates==0) then
+               icorrection_russell = 0
+               icorrection_sst = 0
+               icorrection_sofiev_sst = 0
+               icorrection_local_organics_Arctic = 0
+               icorrection_whitecap = 1
+       endif
+!TO2
+
        if(config_flags%seas_updates==101) then
                icorrection_russell = 1
                icorrection_sst = 1
