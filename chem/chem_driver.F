@@ -725,6 +725,21 @@
        CALL wrf_debug(15,'calling chem_opt=? from chem_driver')
        endif
    END SELECT chem_select                              
+
+   ! If chem_opt other than T1_MOZCART_KPP, MOZCART_KPP, MOZART_MOSAIC_4BIN_AQ_KPP, 
+   ! MOZART_MOSAIC_4BIN_KPP, irr_rates is not allocated and raises an error 
+   ! when compiled with a debug option. 
+   ! If irr_rates is not allocated, it is done here for all chem_opt's
+   IF( .not. allocated( irr_rates ) ) THEN
+     ! Placeholders to avoid calling kpp_mechanism_driver with unallocated
+     ! arrays as arguments
+     ALLOCATE( irr_rates(1, 1, 1, 1), stat=astat )
+     num_irr_diag = 0
+   ENDIF
+
+
+
+
    tracer_select: SELECT CASE(config_flags%tracer_opt)
     CASE (TRACER_SMOKE)
        CALL wrf_debug(15,'tracer mode: 1 tracer for fires')
