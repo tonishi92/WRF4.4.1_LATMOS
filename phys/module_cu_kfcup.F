@@ -4120,7 +4120,15 @@ iter:     DO NCOUNT=1,10
       tth=(thes-bth)*rdthk
       pp   =tth-aint(tth)
       ithtb=int(tth)+1
-!
+!TO2
+      IF(IPTB.GE.220 .OR. IPTB.LE.1 .OR. ITHTB.GE.250 .OR. ITHTB.LE.1)THEN
+        write(*,*) '**** OUT OF BOUNDS ********** IPTB and ITHTB'
+        IPTB = max(1,iptb)
+        IPTB = min(219,iptb)
+        ithtb = max(1,ithtb)
+        ithtb = min(249,ithtb)
+      ENDIF
+!TO2
       t00=ttab(ithtb  ,iptb  )
       t10=ttab(ithtb+1,iptb  )
       t01=ttab(ithtb  ,iptb+1)
